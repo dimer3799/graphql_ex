@@ -26,3 +26,4 @@ print(result.data['hello'])
 query_with_argument = '{ hello(name: "GraphQL") }'
 result = schema.execute(query_with_argument)
 print(result.data['hello'])
+print(result)
