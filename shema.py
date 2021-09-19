@@ -1,30 +1,31 @@
 import graphene
 import extraction
+from graphene import ObjectType, String, Int, List, Float
 import requests
 
 
-def extract(url):
-    html = requests.get(url).text
-    extracted = extraction.Extractor().extract(html, source_url=url)
-    print(extracted)
-    return extracted
+class People(ObjectType):
+
+    name = String()
+    ege = Int()
+    login = String()
+    kpy = Float()
 
 
-class WRent(graphene.ObjectType):
-    """url = graphene.String(required=True)
-    title = graphene.String()
-    description = graphene.String()
-    image = graphene.String()"""
+class Query:
 
-    name = graphene.String()
+    search_worker = List(People, name=String(), ege=Int(), login=String(), kpy=Float())
+
+
+dim = [People(name="Test", ege=i) for i in range(5)]
 
 
 class Query(graphene.ObjectType):
-    website = graphene.Field(test=graphene.List(graphene.String))
+    hello = graphene.List(People)
 
-    def resolve_website(self, info, url):
-        extracted = extract(url)
-        return ["Website()" for i in range(9)]
+    def resolve_hello(self, info):
+        return dim
+        return [People(name="Dim", ege=31), People(name="Test", ege=19)]
 
 
 schema = graphene.Schema(query=Query)

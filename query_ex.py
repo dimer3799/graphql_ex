@@ -1,0 +1,7 @@
+{
+  hello {
+    name
+    ege
+    kpy
+  }
+}
